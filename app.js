@@ -22,10 +22,10 @@ import readlineSync from 'readline-sync';
  * the number you're generating is an integer.
  */
 
-export function generateNumber() {
-  // YOUR CODE HERE
-  // BE SURE IT'S AN INTEGER OR YOU WILL BE SAD
+export function generateNumber(min, max) {
+    return Math.floor(Math.random() * (100)) + 1;
 }
+
 
 /**
  * We need a way to repeatedly ask for user input.
@@ -41,7 +41,8 @@ export function generateNumber() {
  */
 
 export function getUserGuess() {
-	// YOUR CODE HERE
+  var userNumber =(readlineSync.question("Pick a number: "));
+  return Number(userNumber);
 }
 
 /**
@@ -55,7 +56,20 @@ export function getUserGuess() {
  */
 
 export function isRightNumber(correctNumber, userGuess) {
-  // YOUR CODE HERE
+  var userNumber = userGuess;
+  if (correctNumber === userNumber){
+    return true;
+  }
+    if (userNumber < correctNumber){
+      console.log("Your guess is too low!");
+      return false;
+
+    }
+    else if (userNumber > correctNumber){
+      console.log("your guess is too high!");
+      return false;
+    }
+
 }
 
 /**
@@ -86,15 +100,26 @@ export function isRightNumber(correctNumber, userGuess) {
  */
 
 function runGame() {
-	// DISPLAY WELCOME BANNER
+	console.log("Pick a number number between 1 and 100");
+	var correctNumber = generateNumber(1, 100);
+  var userWins = false;
 
-	// STORE INITIAL GAME STATE
+  while (!userWins) {
+    var guess = getUserGuess();
+    var win = isRightNumber(correctNumber, guess);
+    if (win) {
+      userWins = true;
+    }
+  }
 
-	// WHILE LOOP FOR WHEN GAME IS NOT WON
+  console.log("You win!");
+
 }
+
+
 
 /**
  * Finally, we call our runGame function so that
  * the game actually starts.
  */
-runGame();
+ runGame();
